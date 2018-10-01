@@ -21,6 +21,10 @@ public class QuestionController {
         return questionRepository.findAll(pageable);
     }
 
+    @GetMapping("/questions/{questionId}")
+    public Question getQuestionById(@PathVariable Long questionId) {
+        return questionRepository.findById(questionId).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
+    }
 
     @PostMapping("/questions")
     public Question createQuestion(@Valid @RequestBody Question question) {
@@ -34,6 +38,7 @@ public class QuestionController {
                 .map(question -> {
                     question.setTitle(questionRequest.getTitle());
                     question.setDescription(questionRequest.getDescription());
+                    question.setCategory(questionRequest.getCategory());
                     return questionRepository.save(question);
                 }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
     }

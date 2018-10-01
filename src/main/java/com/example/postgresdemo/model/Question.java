@@ -23,6 +23,17 @@ public class Question extends AuditModel {
     @Column(columnDefinition = "text")
     private String description;
 
+    @Column(name = "category")
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public Long getId() {
         return id;
     }
